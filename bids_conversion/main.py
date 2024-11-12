@@ -40,7 +40,7 @@ def main():
     )
     
     # Convert subjects
-    subjects = ['sub-01']  # Add more subjects as needed
+    subjects = ['sub-01', 'sub-02', 'sub-03']  # Add more subjects as needed
     for subject in subjects:
         try:
             converter.convert_subject(subject)
