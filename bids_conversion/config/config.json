@@ -1,0 +1,110 @@
+{
+        "searchMethod": "re",
+        "descriptions": [
+          {
+            "dataType": "anat",
+            "criteria": {
+              "SeriesDescription": "((?=T1).+SAG|(?=SAG).+T1)"
+            },
+            "modalityLabel": "acq-sag_T1"
+          },
+          {
+            "dataType": "anat",
+            "criteria": {
+              "SeriesDescription": "((?=T1).+Sag|(?=Sag).+T1)"
+            },
+            "modalityLabel": "acq-sag_T1"
+          },
+          {
+            "dataType": "anat",
+            "criteria": {
+              "SeriesDescription": "((?=T1).+AX|(?=AX).+T1)"
+            },
+            "modalityLabel": "acq-axial_T1"
+          },
+          {
+            "dataType": "anat",
+            "criteria": {
+              "SeriesDescription": "((?=T1).+Ax|(?=Ax).+T1)"
+            },
+            "modalityLabel": "acq-axial_T1"
+          },
+          {
+            "dataType": "anat",
+            "criteria": {
+              "SeriesDescription": "((?=T1).+COR|(?=COR).+T1)"
+            },
+            "modalityLabel": "acq-cor_T1"
+          },
+          {
+            "dataType": "anat",
+            "criteria": {
+              "SeriesDescription": "((?=T2).+SAG|(?=SAG).+T2)"
+            },
+            "modalityLabel": "acq-sag_T2"
+          },
+          {
+            "dataType": "anat",
+            "criteria": {
+              "SeriesDescription": "((?=T2).+Sag|(?=Sag).+T2)"
+            },
+            "modalityLabel": "acq-sag_T2"
+          },
+          {
+            "dataType": "anat",
+            "criteria": {
+              "SeriesDescription": "((?=T2).+AX|(?=AX).+T2)"
+            },
+            "modalityLabel": "acq-axial_T2"
+          },
+          {
+            "dataType": "anat",
+            "criteria": {
+              "SeriesDescription": "((?=T2).+Ax|(?=Ax).+T2)"
+            },
+            "modalityLabel": "acq-axial_T2"
+          },
+          {
+            "dataType": "anat",
+            "criteria": {
+              "SeriesDescription": "((?=T2).+COR|(?=COR).+T2)"
+            },
+            "modalityLabel": "acq-cor_T2"
+          },
+          {
+            "dataType": "anat",
+            "criteria": {
+              "SeriesDescription": "((?=PD).+SAG|(?=SAG).+PD)"
+            },
+            "modalityLabel": "acq-sag_PD"
+          },
+          {
+            "dataType": "anat",
+            "criteria": {
+              "SeriesDescription": "((?=PD).+Sag|(?=Sag).+PD)"
+            },
+            "modalityLabel": "acq-sag_PD"
+          },
+          {
+            "dataType": "anat",
+            "criteria": {
+              "SeriesDescription": "((?=PD).+AX|(?=AX).+PD)"
+            },
+            "modalityLabel": "acq-axial_PD"
+          },
+          {
+            "dataType": "anat",
+            "criteria": {
+              "SeriesDescription": "((?=PD).+Ax|(?=Ax).+PD)"
+            },
+            "modalityLabel": "acq-axial_PD"
+          },
+          {
+            "dataType": "anat",
+            "criteria": {
+              "SeriesDescription": "((?=PD).+COR|(?=COR).+PD)"
+            },
+            "modalityLabel": "acq-cor_PD"
+          }
+        ]
+      }
