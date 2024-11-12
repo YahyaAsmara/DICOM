@@ -1,0 +1,82 @@
+import pytest
+from bids_conversion.src.validator import ConfigValidator
+from src.converter import DicomConverter
+import subprocess
+from unittest.mock import patch
+
+def test_converter_initialization(config_file, dicom_directory, tmp_path):
+    """Test converter initialization"""
+    output_dir = tmp_path / "bids_output"
+    converter = DicomConverter(config_file, dicom_directory, output_dir)
+    
+    assert converter.config_path.exists()
+    assert converter.dicom_dir.exists()
+    assert converter.output_dir.exists()
+
+def test_converter_invalid_paths(tmp_path):
+    """Test converter with invalid paths"""
+    with pytest.raises(FileNotFoundError):
+        DicomConverter(
+            tmp_path / "nonexistent_config.json",
+            tmp_path / "nonexistent_dicoms",
+            tmp_path / "output"
+        )
+
+@patch('subprocess.run')
+def test_convert_subject(mock_run, config_file, dicom_directory, tmp_path):
+    """Test subject conversion"""
+    output_dir = tmp_path / "bids_output"
+    converter = DicomConverter(config_file, dicom_directory, output_dir)
+    
+    # Test successful conversion
+    converter.convert_subject('sub-01')
+    mock_run.assert_called_once()
+    
+    # Verify correct command construction
+    args = mock_run.call_args[0][0]
+    assert 'dcm2bids' in args
+    assert '-p' in args
+    assert 'sub-01' in args
+
+@patch('subprocess.run')
+def test_convert_subject_with_session(mock_run, config_file, dicom_directory, tmp_path):
+    """Test subject conversion with session"""
+    output_dir = tmp_path / "bids_output"
+    converter = DicomConverter(config_file, dicom_directory, output_dir)
+    
+    converter.convert_subject('sub-01', session='ses-01')
+    mock_run.assert_called_once()
+    
+    args = mock_run.call_args[0][0]
+    assert '-s' in args
+    assert 'ses-01' in args
+
+@patch('subprocess.run')
+def test_convert_subject_error(mock_run, config_file, dicom_directory, tmp_path):
+    """Test conversion error handling"""
+    mock_run.side_effect = subprocess.CalledProcessError(1, 'dcm2bids')
+    
+    output_dir = tmp_path / "bids_output"
+    converter = DicomConverter(config_file, dicom_directory, output_dir)
+    
+    with pytest.raises(subprocess.CalledProcessError):
+        converter.convert_subject('sub-01')
+
+def test_integration(config_file, dicom_directory, tmp_path):
+    """Integration test for the complete conversion process"""
+    output_dir = tmp_path / "bids_output"
+    
+    # First validate configuration
+    validator = ConfigValidator(config_file)
+    issues = validator.validate()
+    assert len(issues) == 0
+    
+    # Then test conversion
+    converter = DicomConverter(config_file, dicom_directory, output_dir)
+    
+    with patch('subprocess.run') as mock_run:
+        converter.convert_subject('sub-01')
+        assert mock_run.called
+
+# Run tests with:
+# pytest tests/ -v --cov=src --cov-report=term-missing
